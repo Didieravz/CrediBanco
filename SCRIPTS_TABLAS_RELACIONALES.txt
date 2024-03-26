@@ -1,0 +1,29 @@
+***************CREA TABLAS CREDI BANCO API******************************
+
+--------------------TABLE CARD-------------------------------------------
+CREATE TABLE `card` (
+  `card_id` int NOT NULL AUTO_INCREMENT,
+  `card_number` varchar(16) NOT NULL,
+  `nombre_titular` varchar(45) NOT NULL,
+  `expiration_date` date NOT NULL,
+  `activated` tinyint NOT NULL DEFAULT '0',
+  `balance` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `blocked` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`card_id`)
+)
+
+
+------------------------TABLE TRANSACTION-------------------------------------------
+
+CREATE TABLE `transaction` (
+  `id_transaction` int NOT NULL AUTO_INCREMENT,
+  `card_id` int NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `cancelled` tinyint NOT NULL DEFAULT '0',
+  `current_time_transaction` date NOT NULL,
+  PRIMARY KEY (`id_transaction`),
+  UNIQUE KEY `idTransaction_UNIQUE` (`id_transaction`),
+  KEY `cardNumberFk_idx` (`cancelled`),
+  KEY `card_id_fk_idx` (`card_id`),
+  CONSTRAINT `card_id_fk` FOREIGN KEY (`card_id`) REFERENCES `card` (`card_id`)
+)
